@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Labor_01_Lotto</string>
+    <string name="tipp_anzahl_label">Anzahl Tipps</string>
+    <string name="radio_6_45">6 aus 45</string>
+    <string name="radio_6_49">6 aus 49</string>
+    <string name="button_generate">Generieren!</string>
 </resources>
