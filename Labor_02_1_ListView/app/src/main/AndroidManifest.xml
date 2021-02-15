@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.labor_02_1_listview">
+    package="com.soisi.labor_02_1_listview">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Labor_02_1_ListView">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name="cf.soisi.labor_02_1_listview.SchuelerList"
+            android:parentActivityName="cf.soisi.labor_02_1_listview.MainActivity" />
+        <activity android:name="cf.soisi.labor_02_1_listview.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

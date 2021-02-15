@@ -1,21 +1,19 @@
-package com.example.labor_02_1_listview;
+package cf.soisi.labor_02_1_listview;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.channels.ClosedByInterruptException;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Klasse {
+public class Klasse implements Serializable,Comparable<Klasse> {
     private String name;
     private Set<Schueler> schueler;
 
@@ -51,6 +49,14 @@ public class Klasse {
         return schueler.remove(Objects.requireNonNull(s));
     }
 
+    public Set<Schueler> getSchueler() {
+        return schueler;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,5 +69,15 @@ public class Klasse {
     @Override
     public int hashCode() {
         return Objects.hash(name, schueler);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d)",name,schueler.size());
+    }
+
+    @Override
+    public int compareTo(Klasse o) {
+        return Comparator.comparing(Klasse::getName).compare(this, o);
     }
 }

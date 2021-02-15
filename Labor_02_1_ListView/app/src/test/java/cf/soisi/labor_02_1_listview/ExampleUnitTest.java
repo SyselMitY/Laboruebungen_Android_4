@@ -1,4 +1,4 @@
-package com.example.labor_02_1_listview;
+package cf.soisi.labor_02_1_listview;
 
 import org.junit.Test;
 

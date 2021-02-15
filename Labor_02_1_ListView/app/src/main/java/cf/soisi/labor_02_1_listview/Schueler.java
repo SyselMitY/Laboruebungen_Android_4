@@ -1,8 +1,10 @@
-package com.example.labor_02_1_listview;
+package cf.soisi.labor_02_1_listview;
 
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Schueler {
+public class Schueler implements Serializable, Comparable<Schueler> {
     private int nummer;
     private String vorname;
     private String nachname;
@@ -75,5 +77,15 @@ public class Schueler {
     @Override
     public int hashCode() {
         return Objects.hash(nummer, vorname, nachname, geschlecht, klasse);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%2d %s %s",nummer,nachname,vorname);
+    }
+
+    @Override
+    public int compareTo(Schueler o) {
+        return Comparator.comparing(Schueler::getNummer).compare(this,o);
     }
 }
