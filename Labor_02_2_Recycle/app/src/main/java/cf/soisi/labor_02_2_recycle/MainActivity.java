@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.soisi.labor_02_1_listview.R;
+import cf.soisi.labor_02_2_recycle.R;
 
 import java.util.List;
 
