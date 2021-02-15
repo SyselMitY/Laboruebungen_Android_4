@@ -15,13 +15,13 @@ import java.util.function.BiConsumer;
 public class RvSchuelerAdapter extends RecyclerView.Adapter<RvSchuelerAdapter.SchuelerViewHolder> {
 
     private List<Schueler> schueler;
-    private BiConsumer<View,Schueler> onClickHandler;
+    private BiConsumer<View, Schueler> onClickHandler;
 
     public RvSchuelerAdapter(List<Schueler> schueler) {
         this.schueler = schueler;
     }
 
-    public void setOnClickHandler(BiConsumer<View,Schueler> onClickHandler) {
+    public void setOnClickHandler(BiConsumer<View, Schueler> onClickHandler) {
         this.onClickHandler = onClickHandler;
     }
 
@@ -51,7 +51,7 @@ public class RvSchuelerAdapter extends RecyclerView.Adapter<RvSchuelerAdapter.Sc
         private TextView schuelerName;
         private TextView schuelerGeschlecht;
         private TextView schuelerKatnr;
-        private BiConsumer<View,Schueler> clickHandler;
+        private BiConsumer<View, Schueler> clickHandler;
         private Schueler schueler;
 
         public SchuelerViewHolder(View itemView, BiConsumer<View, Schueler> clickHandler) {
@@ -66,7 +66,9 @@ public class RvSchuelerAdapter extends RecyclerView.Adapter<RvSchuelerAdapter.Sc
 
         @Override
         public void onClick(View v) {
-            clickHandler.accept(v,schueler);
+            if (clickHandler != null) {
+                clickHandler.accept(v, schueler);
+            }
         }
 
         public CardView getCardView() {
@@ -75,7 +77,7 @@ public class RvSchuelerAdapter extends RecyclerView.Adapter<RvSchuelerAdapter.Sc
 
         public void setSchueler(Schueler schueler) {
             this.schueler = schueler;
-            schuelerName.setText(String.format("%s %s",schueler.getNachname(),schueler.getVorname()));
+            schuelerName.setText(String.format("%s %s", schueler.getNachname(), schueler.getVorname()));
             schuelerGeschlecht.setText(String.valueOf(schueler.getGeschlecht()));
             schuelerKatnr.setText(String.valueOf(schueler.getNummer()));
         }

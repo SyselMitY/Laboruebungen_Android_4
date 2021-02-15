@@ -15,13 +15,13 @@ import java.util.function.BiConsumer;
 public class RvKlasseAdapter extends RecyclerView.Adapter<RvKlasseAdapter.KlasseViewHolder> {
 
     private List<Klasse> klassen;
-    private BiConsumer<View,Klasse> onClickHandler;
+    private BiConsumer<View, Klasse> onClickHandler;
 
     public RvKlasseAdapter(List<Klasse> klassen) {
         this.klassen = klassen;
     }
 
-    public void setOnClickHandler(BiConsumer<View,Klasse> onClickHandler) {
+    public void setOnClickHandler(BiConsumer<View, Klasse> onClickHandler) {
         this.onClickHandler = onClickHandler;
     }
 
@@ -50,7 +50,7 @@ public class RvKlasseAdapter extends RecyclerView.Adapter<RvKlasseAdapter.Klasse
         private CardView cardView;
         private TextView klasseName;
         private TextView klasseAnzahl;
-        private BiConsumer<View,Klasse> clickHandler;
+        private BiConsumer<View, Klasse> clickHandler;
         private Klasse klasse;
 
         public KlasseViewHolder(View itemView, BiConsumer<View, Klasse> clickHandler) {
@@ -64,7 +64,9 @@ public class RvKlasseAdapter extends RecyclerView.Adapter<RvKlasseAdapter.Klasse
 
         @Override
         public void onClick(View v) {
-            clickHandler.accept(v,klasse);
+            if (clickHandler != null) {
+                clickHandler.accept(v, klasse);
+            }
         }
 
         public CardView getCardView() {
@@ -74,7 +76,7 @@ public class RvKlasseAdapter extends RecyclerView.Adapter<RvKlasseAdapter.Klasse
         public void setKlasse(Klasse klasse) {
             this.klasse = klasse;
             klasseName.setText(klasse.getName());
-            klasseAnzahl.setText(String.format("(%d)",klasse.getSchueler().size()));
+            klasseAnzahl.setText(String.format("(%d)", klasse.getSchueler().size()));
         }
     }
 }
