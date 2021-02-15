@@ -1,39 +1,36 @@
 package cf.soisi.labor_02_2_recycle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import cf.soisi.labor_02_2_recycle.R;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     public static String KLASSE_EXTRA = "cf.soisi.labor_02_1_listview.main.extra";
-        private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lv = findViewById(R.id.lvKlassen);
         List<Klasse> klassen = Klasse.readKlassen(this.getResources().openRawResource(R.raw.schueler));
-        klassen.sort(null);
-        ArrayAdapter<Klasse> mAdapter = new ArrayAdapter<Klasse>(this, android.R.layout.simple_list_item_1,klassen);
+        RecyclerView rv = findViewById(R.id.rvKlasse);
 
-        lv.setAdapter(mAdapter);
-        lv.setOnItemClickListener((adapterView, view, pos, id) -> itemClickListener(mAdapter.getItem(pos)));
+        klassen.sort(null);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        RvKlasseAdapter adapter = new RvKlasseAdapter(klassen);
+        adapter.setOnClickHandler(this::listenToClick);
+        rv.setAdapter(adapter);
     }
 
-    private void itemClickListener(Klasse klasse) {
-        Intent intent = new Intent(this,SchuelerListActivity.class);
+    private void listenToClick(View view, Klasse klasse) {
+        Intent intent = new Intent(this,SchuelerActivity.class);
         intent.putExtra(KLASSE_EXTRA,klasse);
         startActivity(intent);
     }
