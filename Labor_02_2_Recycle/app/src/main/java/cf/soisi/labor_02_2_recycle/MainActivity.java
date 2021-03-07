@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Klassenliste");
 
         List<Klasse> klassen = Klasse.readKlassen(this.getResources().openRawResource(R.raw.schueler));
         RecyclerView rv = findViewById(R.id.rvKlasse);

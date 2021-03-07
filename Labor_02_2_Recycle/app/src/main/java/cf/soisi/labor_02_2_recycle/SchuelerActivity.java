@@ -17,6 +17,7 @@ public class SchuelerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schueler);
 
         Klasse klasse = (Klasse) getIntent().getSerializableExtra(MainActivity.KLASSE_EXTRA);
+        setTitle(klasse.getName());
         RecyclerView rv = findViewById(R.id.rvSchueler);
         List<Schueler> schueler = new ArrayList<>(klasse.getSchueler());
         schueler.sort(null);
