@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Tankmesser</string>
+    <string name="button_create_entry">Betankung eintragen</string>
+    <string name="button_show_entries">Liste anzeigen</string>
+    <string name="button_delete_entries">Alle Einträge Löschen</string>
+    <string name="text_create_entry">Zum Hinzufügen eines neuen Eintrags in der Liste</string>
+    <string name="text_show_entries">Zum Anzeigen aller bisher eingetragenen Betankungen</string>
+    <string name="text_delete_entries">Zum Löschen aller vorhandenen Einträge. ACHTUNG, mit Vorsicht anwenden!</string>
+    <string name="text_title">Wilkommen</string>
+    <string name="text_create_title">Eintrag erstellen</string>
+    <string name="label_create_date">Datum</string>
+    <string name="label_create_km_old">Alter Kilometerstand</string>
+    <string name="label_create_km_new">Neuer Kilometerstand</string>
+    <string name="label_create_fuel_amount">Tankmenge</string>
+    <string name="label_create_fuel_price">Preis pro Liter</string>
+    <string name="hint_create_date">Tippen zum editieren</string>
+    <string name="button_create_save">Speichern</string>
 </resources>
