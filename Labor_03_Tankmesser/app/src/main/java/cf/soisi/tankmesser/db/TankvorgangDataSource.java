@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TankvorgangDataSource {
@@ -40,11 +39,11 @@ public class TankvorgangDataSource {
     public Tankvorgang insertTankvorgang(Tankvorgang tv) {
 
         ContentValues values = new ContentValues();
-        values.put(TankvorgangDbHelper.COLUMN_DATE, tv.getDatum().format(DateTimeFormatter.ISO_DATE));
-        values.put(TankvorgangDbHelper.COLUMN_KM_OLD, tv.getKmAlt());
-        values.put(TankvorgangDbHelper.COLUMN_KM_NEW, tv.getKmNeu());
-        values.put(TankvorgangDbHelper.COLUMN_FUEL_AMOUNT, ((int) (tv.getMenge() * 1000)));
-        values.put(TankvorgangDbHelper.COLUMN_FUEL_PRICE, ((int) (tv.getPreis() * 1000)));
+        values.put(TankvorgangDbHelper.COLUMN_DATE, tv.getDate().format(DateTimeFormatter.ISO_DATE));
+        values.put(TankvorgangDbHelper.COLUMN_KM_OLD, tv.getKmOld());
+        values.put(TankvorgangDbHelper.COLUMN_KM_NEW, tv.getKmNew());
+        values.put(TankvorgangDbHelper.COLUMN_FUEL_AMOUNT, ((int) (tv.getAmount() * 1000)));
+        values.put(TankvorgangDbHelper.COLUMN_FUEL_PRICE, ((int) (tv.getPrice() * 1000)));
 
         long insertId = database.insert(TankvorgangDbHelper.TABLE_NAME, null, values);
 
@@ -54,7 +53,7 @@ public class TankvorgangDataSource {
     public Tankvorgang getTankvorgang(long id) {
         try (Cursor cursor = getCursorFromQuery(
                 TankvorgangDbHelper.COLUMN_ID + "= ?",
-                new String[]{String.valueOf(id)})) {
+                new String[]{String.valueOf(id)}, TankvorgangDbHelper.COLUMN_DATE + " desc")) {
             List<Tankvorgang> list = getListFromCursor(cursor);
             return list.stream()
                     .findFirst()
@@ -63,12 +62,22 @@ public class TankvorgangDataSource {
     }
 
     public List<Tankvorgang> getAll() {
-        try (Cursor cursor = getCursorFromQuery(null, null)) {
+        try (Cursor cursor = getCursorFromQuery(null, null, TankvorgangDbHelper.COLUMN_DATE + " desc")) {
             return getListFromCursor(cursor);
         }
     }
 
-    private Cursor getCursorFromQuery(String where, String[] whereArgs) {
+    public Integer getLatestKmValue() {
+        try (Cursor cursor = getCursorFromQuery(null, null, TankvorgangDbHelper.COLUMN_KM_NEW + " desc")) {
+            return getListFromCursor(cursor)
+                    .stream()
+                    .findFirst()
+                    .map(Tankvorgang::getKmNew)
+                    .orElse(null);
+        }
+    }
+
+    private Cursor getCursorFromQuery(String where, String[] whereArgs, String orderBy) {
         return database.query(
                 TankvorgangDbHelper.TABLE_NAME,
                 allColumns,
@@ -76,7 +85,11 @@ public class TankvorgangDataSource {
                 whereArgs,
                 null,
                 null,
-                null);
+                orderBy);
+    }
+
+    private Cursor getCursorFromQuery(String where, String[] whereArgs) {
+        return getCursorFromQuery(where, whereArgs, null);
     }
 
     private List<Tankvorgang> getListFromCursor(Cursor c) {

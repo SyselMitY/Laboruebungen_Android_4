@@ -30,18 +30,26 @@ public class CreateEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_entry);
         dataSource = new TankvorgangDataSource(this);
-        dataSource.open();
 
         DatePickerFragment datePicker = new DatePickerFragment(this::listenOnDateSelected);
         findViewById(R.id.inputDate).setOnClickListener(
                 v -> datePicker.show(getSupportFragmentManager(), "datePicker"));
 
         findViewById(R.id.button_create_save).setOnClickListener(this::saveEntry);
+
+        try {
+            dataSource.open();
+            Integer lastKm = dataSource.getLatestKmValue();
+            ((EditText) findViewById(R.id.inputKmOld)).setText(String.valueOf(lastKm));
+        } finally {
+            dataSource.close();
+        }
     }
 
     private void saveEntry(View view) {
 
         try {
+            dataSource.open();
             int kmAlt = Integer.parseInt(getStringFromViewId(R.id.inputKmOld));
             int kmNeu = Integer.parseInt(getStringFromViewId(R.id.inputKmNew));
             double menge = Double.parseDouble(getStringFromViewId(R.id.inputFuelAmount));
@@ -63,15 +71,16 @@ public class CreateEntryActivity extends AppCompatActivity {
 
             Tankvorgang tankvorgang = new Tankvorgang(selectedDate, kmAlt, kmNeu, menge, preis);
             dataSource.insertTankvorgang(tankvorgang);
-            dataSource.close();
             navigateUpTo(new Intent(this, MainActivity.class));
         } catch (NumberFormatException e) {
             showErrorToast("Felder dürfen nicht leer sein");
+        } finally {
+            dataSource.close();
         }
     }
 
     private void showErrorToast(String message) {
-        Toast.makeText( this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     private String getStringFromViewId(int id) {
@@ -80,7 +89,7 @@ public class CreateEntryActivity extends AppCompatActivity {
 
 
     private void listenOnDateSelected(DatePicker datePicker, int year, int month, int day) {
-        selectedDate = LocalDate.of(year, month+1, day);
+        selectedDate = LocalDate.of(year, month + 1, day);
         updateDateField();
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,12 +24,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listenOnShow(View view) {
-        Intent intent = new Intent(this,CreateEntryActivity.class);
+        Intent intent = new Intent(this,ShowEntriesActivity.class);
         startActivity(intent);
     }
 
     private void listenOnDelete(View view) {
-        Intent intent = new Intent(this,CreateEntryActivity.class);
-        startActivity(intent);
+        Toast.makeText(this, "Nein, jetzt wird nicht gelöscht!!!!", Toast.LENGTH_SHORT).show();
     }
 }

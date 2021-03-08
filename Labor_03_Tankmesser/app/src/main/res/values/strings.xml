@@ -13,6 +13,10 @@
     <string name="label_create_km_new">Neuer Kilometerstand</string>
     <string name="label_create_fuel_amount">Tankmenge</string>
     <string name="label_create_fuel_price">Preis pro Liter</string>
-    <string name="hint_create_date">Tippen zum editieren</string>
+    <string name="hint_create_date">Tippen zum Editieren</string>
     <string name="button_create_save">Speichern</string>
+    <string name="label_show_entry_kmOld">KM Alt:</string>
+    <string name="label_show_entry_kmNeu" >KM Neu:</string>
+    <string name="label_show_entry_amount">Füllmenge:</string>
+    <string name="label_show_entries_price">Literpreis:</string>
 </resources>

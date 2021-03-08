@@ -4,47 +4,47 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Tankvorgang {
-    private final LocalDate datum;
-    private final int kmAlt;
-    private final int kmNeu;
-    private final double menge;
-    private final double preis;
+    private final LocalDate date;
+    private final int kmOld;
+    private final int kmNew;
+    private final double amount;
+    private final double price;
     private final Long id;
 
-    Tankvorgang(LocalDate datum, int kmAlt, int kmNeu, double menge, double preis, Long id) {
-        if (kmAlt > kmNeu || kmAlt < 0 || kmNeu < 0 || menge <= 0 || preis <= 0)
+    Tankvorgang(LocalDate date, int kmOld, int kmNew, double amount, double price, Long id) {
+        if (kmOld > kmNew || kmOld < 0 || kmNew < 0 || amount <= 0 || price <= 0)
             throw new IllegalArgumentException();
 
-        this.datum = Objects.requireNonNull(datum);
-        this.kmAlt = kmAlt;
-        this.kmNeu = kmNeu;
-        this.menge = menge;
-        this.preis = preis;
+        this.date = Objects.requireNonNull(date);
+        this.kmOld = kmOld;
+        this.kmNew = kmNew;
+        this.amount = amount;
+        this.price = price;
         this.id = id;
     }
 
-    public Tankvorgang(LocalDate datum, int kmAlt, int kmNeu, double menge, double preis) {
-        this(datum,kmAlt,kmNeu,menge,preis,null);
+    public Tankvorgang(LocalDate date, int kmOld, int kmNew, double amount, double price) {
+        this(date, kmOld, kmNew, amount, price,null);
     }
 
-    public LocalDate getDatum() {
-        return datum;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public int getKmAlt() {
-        return kmAlt;
+    public int getKmOld() {
+        return kmOld;
     }
 
-    public int getKmNeu() {
-        return kmNeu;
+    public int getKmNew() {
+        return kmNew;
     }
 
-    public double getMenge() {
-        return menge;
+    public double getAmount() {
+        return amount;
     }
 
-    public double getPreis() {
-        return preis;
+    public double getPrice() {
+        return price;
     }
 
     public Long getId() {
